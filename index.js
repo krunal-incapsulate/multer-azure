@@ -35,11 +35,12 @@ var Blob = (function () {
                 fileClone.container = that.container;
                 fileClone.blobPath = blobPath;
                 fileClone.url = fullUrl;
-                console.log('createWriteStreamToBlockBlob -> close' + new Date());
+                console.log('createWriteStreamToBlockBlob -> close ' + new Date());
+                console.log({ fullUrl: fullUrl });
                 cb(null, fileClone);
             });
             blobStream.on("error", function (error) {
-                console.log('createWriteStreamToBlockBlob -> error' + new Date());
+                console.log('createWriteStreamToBlockBlob -> error ' + new Date());
                 cb(error);
             });
         };
