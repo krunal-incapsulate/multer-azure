@@ -38,9 +38,11 @@ class Blob {
 
   // actual upload function, will wait for blobPathResolver callback before upload.
   private uploadToBlob(req: any, file: any, cb: any) {
+    console.log('uploadToBlob ' + new Date());
     var that = this;
     return function (something: any, blobPath: string) {
       var blobStream = that.blobSvc.createWriteStreamToBlockBlob(that.container, blobPath, function(error){
+        console.log('createWriteStreamToBlockBlob ' + new Date());
         if(error){cb(error);}
       });
       file.stream.pipe(blobStream);
@@ -50,9 +52,11 @@ class Blob {
         fileClone.container = that.container;
         fileClone.blobPath = blobPath;
         fileClone.url = fullUrl;
+        console.log('createWriteStreamToBlockBlob -> close' + new Date());
         cb(null, fileClone);
       });
       blobStream.on("error", function(error){
+        console.log('createWriteStreamToBlockBlob -> error' + new Date());
         cb(error);
       });
     }
